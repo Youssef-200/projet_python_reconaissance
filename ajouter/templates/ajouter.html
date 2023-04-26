@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+</head>{% load static %}
+
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="{% static 'static/style.css'%}">
+    <title>hi</title>
+</head>
+<body>
+    <nav class="navbar  ">
+
+        
+        <a href="/sec" style="margin-left: 7%;margin-top: -8%;"><i style="font-size: 75px;color: rgb(100, 202, 190);" class="fa fa-arrow-left"></i></a>
+        
+      </nav>
+
+    <section>
+        
+        <div id="ajout_client">
+            <span class="login100-form-title p-b-49">
+                Ajout de client 
+            </span>
+            <br/>
+            <span style="color: blue;">{{a}}</span>
+        <br/>
+            <span style="color: red;">{{b}}</span>
+            <form method="POST" action="/ajouter/ajout" enctype="multipart/form-data">
+                {% csrf_token %}
+
+            <div class="wrap-input100 validate-input m-b-23" >
+                <span class="label-input100">Nom</span>
+                <input class="input100" type="text" name="nom" placeholder="Entrez Nom">
+                
+            </div>
+
+            <div  class="wrap-input100 validate-input">
+                <span class="label-input100">Prenom</span>
+                <input class="input100" type="text" name="prenom"placeholder="Entrez Prenom">
+                
+            </div>
+    
+            <div class="wrap-input100 validate-input m-b-23" >
+                <span class="label-input100">Cin</span>
+                <input class="input100" type="text" name="cin" placeholder="Entrez email">
+                
+            </div>
+
+            <div  class="wrap-input100 validate-input">
+                <span class="label-input100">Telephone</span>
+                <input class="input100" type="tel" name="tel"  placeholder="Entrez telephone">
+                
+            </div>
+
+
+            <div  class="wrap-input100 validate-input">
+                <span class="label-input100">Date de naussance</span>
+                <input  type="date" class="input100" name="naissance"  >
+                
+            </div>
+            <div  class="wrap-input100 validate-input">
+                <span class="label-input100">Adresse</span>
+                <input  class="input100" type="text" name="adresse"  >
+            </div>
+           <!-- <a href="/face">
+                <button type="button" class="btn " style="width: 380px; margin-top: 3%;background-color: #8b565693;">Ajouter visage</button> 
+            </a> -->
+            <div class="container-login100-form-btn">
+                <div class="wrap-login100-form-btn">
+                    <div class="login100-form-bgbtn"></div>
+                    <button type="submit" class="login100-form-btn">
+                        créer 
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    </section>
+    
+</body>
+</html>

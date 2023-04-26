@@ -1,0 +1,21 @@
+{
+  "extends": [
+    "development"
+  ],
+  "hints": {
+    "meta-viewport": "off",
+    "axe/forms": [
+      "default",
+      {
+        "label": "off"
+      }
+    ],
+    "highest-available-document-mode": "off",
+    "axe/aria": [
+      "default",
+      {
+        "aria-roles": "off"
+      }
+    ]
+  }
+}
