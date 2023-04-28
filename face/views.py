@@ -38,7 +38,9 @@ def detection(request):
 
         print(j[0])
 
-        data_path = 'C:/Users/hp/projet_python_reconaissance/image/'+str(j[0])+'/'
+        data_path = 'C:/Users/hp/projet_python_reconaissance/image/'
+
+        data_path = data_path[0:len(data_path)]+j[0]+'/'
 
         # lister toutes les images dans une liste (isfile pour tester que le file est une image)
 
@@ -180,7 +182,7 @@ def Dataset(request):
 
     os.makedirs(path)
     
-    isExist = os.path.exists(path)
+    #isExist = os.path.exists(path)
 
     ##if isExist :
         
