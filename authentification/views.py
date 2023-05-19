@@ -28,11 +28,11 @@ def login(request):
 
           elif Email=="assistant@gmail.com" and password=='123':
                
-               request.session['stat']= 'assistant'
+                    request.session['stat']= 'assistant'
 
-               request.session['s']=True
+                    request.session['s']=True
                
-               return redirect('/sec')
+                    return redirect('/sec')
                     
           else:
 

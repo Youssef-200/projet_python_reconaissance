@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'authentification',
     'face',
     'rech',
+    'recup_infos',
 ]
  
 MIDDLEWARE = [

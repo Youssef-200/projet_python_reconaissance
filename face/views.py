@@ -12,8 +12,6 @@ import os
 
 def detection(request):
 
-    a = 1
-
     from os import listdir
 
     from os.path import isfile, join
@@ -126,8 +124,6 @@ def detection(request):
 
                 else:
 
-                    a = 0
-
                     break
 
             except:
@@ -138,7 +134,7 @@ def detection(request):
 
                 pass
 
-            if cv2.waitKey(1)==13:
+            if cv2.waitKey(1)==ord('q'):
         
                 break
        
@@ -181,14 +177,6 @@ def Dataset(request):
     path='C:/Users/hp/projet_python_reconaissance/image/'+nameID
 
     os.makedirs(path)
-    
-    #isExist = os.path.exists(path)
-
-    ##if isExist :
-        
-        #print("Nom deja existant !!!")
-        
-        #nameID=str(input("Essayez d'enrer un nouveau nom : "))
             
     while True:
 
@@ -214,7 +202,7 @@ def Dataset(request):
 
             # lorsque le nombre de photos depasse 100 on arrete la processus de detection ,
 
-        if cv2.waitKey(1)==13 or count==100:
+        if cv2.waitKey(1)==ord('q') or count==100:
 
             break
 

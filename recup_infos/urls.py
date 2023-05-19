@@ -7,4 +7,6 @@ urlpatterns = [
 
     path('recherche_detect', views.recherche_detect, name='recherche_detect'),
     
+    path('liste_attente', views.liste_attente, name='liste_attente'),
+    
 ]

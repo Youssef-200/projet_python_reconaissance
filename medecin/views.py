@@ -19,11 +19,11 @@ def medecin(request):
 
         request.session['id']=result[8]
 
-        return render(request, 'medecin.html', {'nom': result[1], 'prenom': result[2] , 'cin': result[3], 'consultation':result[9],'maladie': result[10],'taritement': result[11],'description': result[12]})
+        return render(request, 'med.html', {'nom': result[1], 'prenom': result[2] , 'cin': result[3], 'consultation':result[9],'maladie': result[10],'taritement': result[11],'description': result[12]})
     
     else:
 
-        return render(request, 'medecin.html',{'err': "aucun patient dans la salle d'attente"})
+        return render(request, 'med.html',{'err': "aucun patient dans la salle d'attente"})
     
 
 
@@ -42,13 +42,13 @@ def suivant(request):
     res=cur.execute(requete)
 
     result = cur.fetchone()
+    
     if result is not None:
 
-        return render(request, 'medecin.html', {'nom': result[1], 'prenom': result[2] , 'cin': result[3], 'consultation':result[9],'maladie': result[10],'taritement': result[11],'description': result[12]})
+        return render(request, 'med.html', {'nom': result[1], 'prenom': result[2] , 'cin': result[3], 'consultation':result[9],'maladie': result[10],'taritement': result[11],'description': result[12]})
     
     else:
-    
-        return render(request, 'medecin.html',{'err': "c'est le dernier patient"})
+        return redirect('/medecin')
     
 def deconnect(request):
 
@@ -63,5 +63,13 @@ def deconnect(request):
     res=cur.execute(requete)
 
     conn.commit()
+
+    request.session['prenom']=[]
+    
+    request.session['nom']=[]
+
+    request.session['tel']=[]
+
+    request.session['adresse']=[]
 
     return redirect("../")

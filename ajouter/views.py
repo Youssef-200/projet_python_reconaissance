@@ -13,7 +13,7 @@ def ajouter(request):
 
         return render(request, 'ajouter.html') #formulair d4ajout de l'assistante
     
-    else: return render(request, 'consultation.html') #formulair d4ajout de medcin sinon
+    else: return render(request, 'consult.html') #formulair d4ajout de medcin sinon
 
 def ajout(request):
 
@@ -59,8 +59,10 @@ def ajout(request):
 
             if date_Consultation  != '' and Type_maladie != '' and Traitement != '' and  Diagnostic != '' :
             
-                insertion_medcin(date_Consultation,Type_maladie,Traitement,Diagnostic,s)
+                if(insertion_medcin(date_Consultation,Type_maladie,Traitement,Diagnostic,s)):
             
-                return render(request, 'consultation.html', {'a':  "Ajouté avec succés ."})
-        
+                    return render(request, 'med.html', {'a':  "Ajouté avec succés ."})
+                
+                else: return redirect('medecin')
+                
             else: return redirect('/ajouter')
