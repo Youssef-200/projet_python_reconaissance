@@ -10,8 +10,8 @@ radius=3
 textures=['AI']
 file_name_path ='./'+ '.jpg'
 for texture in textures:
-	print(">>>", "{}.jpg".format(texture))
-	image=cv2.imread("{}.jpg".format(texture), 0)
+	print(">>>", f"{texture}.jpg")
+	image=cv2.imread(f"{texture}.jpg", 0)
 	if image is None:
 		quit("Probleme image...")
 	lbp=feature.local_binary_pattern(image, numPoints, radius, method='default')

@@ -63,6 +63,22 @@ def deconnect(request):
     res=cur.execute(requete)
 
     conn.commit()
+    
+    def inf(f):
+
+        import pickle
+
+        a=[]
+          
+        fil = open(f, 'wb')
+                  
+        pickle.dump(a, fil)
+
+        fil.close()
+    inf("nom")
+    inf("prenom")
+    inf("tel")
+    inf("adresse")
 
     request.session['prenom']=[]
     

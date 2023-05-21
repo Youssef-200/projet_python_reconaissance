@@ -38,6 +38,7 @@ def recherche(request):
 def sec(request):
      
      if request.session['s']== True :
-            return render(request, 'python.html', {'nom': request.session['nom'], 'prenom': request.session['prenom'],'tel': request.session['tel'],'adresse': request.session['adresse'],})
+            
+                  return render(request, 'python.html', {'nom': request.session['nom'], 'prenom': request.session['prenom'],'tel': request.session['tel'],'adresse': request.session['adresse'],})
             
      else: return redirect('/authentification')

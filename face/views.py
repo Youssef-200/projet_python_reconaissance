@@ -10,74 +10,34 @@ import numpy as np
 
 import os
 
+cap= cv2.VideoCapture(0)
+
 def detection(request):
-
-    from os import listdir
-
-    from os.path import isfile, join
-
-    import sqlite3
-
-    cap= cv2.VideoCapture(0)
-
+        
+    import cv2
+    
     cap.read()
+    
+    import pickle
 
-    conn = sqlite3.connect('db.sqlite3')
+    # open a file, where you stored the pickled data
+    
+    file = open('important', 'rb')
 
-    cur=conn.cursor()
+    # dump information to that file
+    
+    data = pickle.load(file)
+    
+    # close the file    
+    
+    file.close()
 
-    requete="select cin,id_patient from patient"
-
-    res=cur.execute(requete)
-
-    result = cur.fetchall()
-
-    for j in result:
-
-        print(j[0])
-
-        data_path = 'C:/Users/hp/projet_python_reconaissance/image/'
-
-        data_path = data_path[0:len(data_path)]+j[0]+'/'
-
-        # lister toutes les images dans une liste (isfile pour tester que le file est une image)
-
-        onlyfiles = [f for f in listdir(data_path) if isfile(join(data_path,f))]
-
-        # Create arrays for training data and labels
-
-        Training_Data, Labels = [], []
-
-        # Opening training images in our datapath
-
-        # Creating a numpy array for training data
-
-        for i, files in enumerate(onlyfiles):
-            
-            image_path = data_path + onlyfiles[i]
-            
-            images = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
-
-            # pour charger l'image en mode niveau de gris
-            
-            # asarray() pour convertire chaque image en un tableau
-
-            Training_Data.append(np.asarray(images, dtype=np.uint8))
-
-            # pour chaque image on stock son indice dans un tableau labels
-
-            Labels.append(i)
-
-        Labels = np.asarray(Labels, dtype=np.int32)
-
-        # LBPH (Local Binary Pattern Histogram) est un algorithme de reconnaissance faciale utilisé 
-        # pour reconnaître le visage d’une personne. Il est connu pour ses performances et sa capacité 
-        # à reconnaître le visage d’une personne à la fois de face avant et de face.
+    for i in data:
 
         model = cv2.face.LBPHFaceRecognizer_create()
 
-        model.train(np.asarray(Training_Data), np.asarray(Labels))
-    
+        model.train(np.asarray(i[0]),np.asarray(i[1]))
+
         face_classifier = cv2.CascadeClassifier('C:/Users/hp/projet_python_reconaissance/face/haarcascade_frontalface_default.xml')
 
         def face_detector(img, size = 0.5):
@@ -118,7 +78,7 @@ def detection(request):
 
                 if confidence > 82:
 
-                    request.session['id'] = j[1]
+                    request.session['cinid'] = i[2]
                     
                     return redirect("/recup_infos/recherche_detect")
 
@@ -210,4 +170,77 @@ def Dataset(request):
 
     cv2.destroyAllWindows()
 
-    return redirect("/sec")
+    return redirect("/face/training")
+
+def training(request):
+        
+        import pickle
+        
+        from os import listdir
+
+        from os.path import isfile, join
+        
+        data_path = 'C:/Users/hp/projet_python_reconaissance/image/'
+
+        data_path = data_path[0:len(data_path)]+request.session['cin']+'/'
+
+        # lister toutes les images dans une liste (isfile pour tester que le file est une image)
+
+        onlyfiles = [f for f in listdir(data_path) if isfile(join(data_path,f))]
+
+        # Create arrays for training data and labels
+
+        Training_Data, Labels = [], []
+
+        # Opening training images in our datapath
+
+        # Creating a numpy array for training data
+
+        for i, files in enumerate(onlyfiles):
+            
+            image_path = data_path + onlyfiles[i]
+            
+            images = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+
+            # pour charger l'image en mode niveau de gris
+            
+            # asarray() pour convertire chaque image en un tableau
+
+            Training_Data.append(np.asarray(images, dtype=np.uint8))
+
+            # pour chaque image on stock son indice dans un tableau labels
+
+            Labels.append(i)
+
+        Labels = np.asarray(Labels, dtype=np.int32)
+
+        # LBPH (Local Binary Pattern Histogram) est un algorithme de reconnaissance faciale utilisé 
+        # pour reconnaître le visage d’une personne. Il est connu pour ses performances et sa capacité 
+        # à reconnaître le visage d’une personne à la fois de face avant et de face.
+
+        # dump information to that file 
+
+        data=[Training_Data,Labels,request.session['cin']]
+
+
+        file = open('important', 'rb')
+
+        # dump information to that file
+    
+        big_data = pickle.load(file)
+
+        # close the file    
+    
+        file.close()
+
+        big_data.append(data)
+        
+        file = open('important', 'wb')
+
+        pickle.dump(big_data, file)
+
+        # close the file
+
+        file.close()
+
+        return redirect('/sec')
